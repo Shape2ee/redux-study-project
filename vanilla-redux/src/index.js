@@ -1,41 +1,22 @@
 import { createStore } from "redux";
 
-const $add = document.getElementById('add');
-const $minus = document.getElementById('minus');
-const $number = document.querySelector('span');
+const ADD_TODO = "ADD TODO";
+const DELETE_TODO = "DELETE TODO";
 
-const reducer = (state, action) => {
-  if (state === undefined) {
-    return { count: 0}
-  }
-  let newState;
-  console.log(state, action)
-  if (action.type === 'ADD') {
-    newState = Object.assign({}, state)
-    newState.count += 1
-  }
-  if (action.type === 'MINUS') {
-    newState = Object.assign({}, state)
-    newState.count -= 1
-  }
-  return newState
+const $form = document.querySelector('form');
+const $toDolist = document.querySelector('ul');
+
+const createToDo = (toDo) => {
+  const li = document.createElement('li');
+  li.innerText = toDo;
+  $toDolist.appendChild(li)
 }
 
-const store = createStore(reducer)
-
-const onChange = () => {
-  const state = store.getState()
-  $number.innerText = state.count
-}
-store.subscribe(onChange)
-
-const handleAdd = () => {
-  store.dispatch({type: "ADD"})
+const onSubmit = (e) => {
+  e.preventDefault()
+  const toDoInput = e.target.toDo.value
+  e.target.toDo.value = ''
+  createToDo(toDoInput)
 }
 
-const handleMinus = () => {
-  store.dispatch({type: "MINUS"})
-}
-
-$add.addEventListener("click", handleAdd)
-$minus.addEventListener("click", handleMinus)
+$form.addEventListener('submit', onSubmit)
