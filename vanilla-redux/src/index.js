@@ -4,21 +4,28 @@ const $add = document.getElementById('add');
 const $minus = document.getElementById('minus');
 const $number = document.querySelector('span');
 
-const reducer = (state = 0, action) => {
+const reducer = (state, action) => {
+  if (state === undefined) {
+    return { count: 0}
+  }
+  let newState;
   console.log(state, action)
   if (action.type === 'ADD') {
-    return state + 1
+    newState = Object.assign({}, state)
+    newState.count += 1
   }
   if (action.type === 'MINUS') {
-    return state - 1
+    newState = Object.assign({}, state)
+    newState.count -= 1
   }
-  return state
+  return newState
 }
 
 const store = createStore(reducer)
 
 const onChange = () => {
-  $number.innerText = store.getState()
+  const state = store.getState()
+  $number.innerText = state.count
 }
 store.subscribe(onChange)
 
