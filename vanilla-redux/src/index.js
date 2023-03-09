@@ -4,12 +4,14 @@ const ADD_TODO = "ADD TODO";
 const DELETE_TODO = "DELETE TODO";
 
 const $form = document.querySelector('form');
+const $input = document.querySelector('input')
 const $toDolist = document.querySelector('ul');
 
 const setLocalStorage = (toDos) => {
   const toDoList = JSON.stringify(toDos)
   window.localStorage.setItem('ToDos', toDoList)
 }
+
 const reducer = (state, action) => {
   console.log(state, action)
   if (state === undefined) {
@@ -52,10 +54,9 @@ const deleteTodo = (e) => {
 
 const paintTodo = () => {
   // const state = store.getState();
-  const array = JSON.parse(window.localStorage.getItem('ToDos'))
-  console.log(array)
+  const localToDosList = JSON.parse(window.localStorage.getItem('ToDos'))
   $toDolist.innerHTML = '';
-  array.map((toDo) => {
+  localToDosList.map((toDo) => {
     const li = document.createElement('li');
     const btn = document.createElement('button')
     btn.innerText = 'Del';
@@ -67,15 +68,16 @@ const paintTodo = () => {
   });
 }
 store.subscribe(paintTodo)
+
 const addToDo = (text) => {
   store.dispatch({ type: ADD_TODO, text })
 }
 
 const onSubmit = (e) => {
   e.preventDefault()
-  const toDoInput = e.target.toDo.value
-  e.target.toDo.value = ''
-  addToDo(toDoInput)
+  const toDoValue = $input.value
+  $input.value = ''
+  addToDo(toDoValue)
 }
 
 $form.addEventListener('submit', onSubmit)
