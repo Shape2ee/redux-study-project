@@ -1,8 +1,8 @@
 import { createStore } from "redux";
+import { ToDoList, ToDoAction } from '../types'
 
 const ADD = "ADD" as const
 const DELETE = 'DELETE' as const
-
 
 export const dispatchAdd = (text: string) => {
   return  {
@@ -18,23 +18,11 @@ export const dispatchDelete = (id: number) => {
   }
 };
 
-
-interface ToDo {
-  text: string,
-  id: number
-}
-
-interface ToDoList {
-  toDoList: ToDo[]
-}
-
-// type ToDoAction = | ReturnType<typeof dispatchAdd> | ReturnType<typeof dispatchDelete>
-
 const initialState: ToDoList = {
   toDoList: []
 }
 
-const reducer = (state: ToDoList = initialState , action: any): ToDoList => {
+const reducer = (state: ToDoList = initialState , action: ToDoAction): ToDoList => {
   switch(action.type) {
     case ADD: {
       const newToDoList = [{ text: action.text, id: Date.now() }, ...state.toDoList]
