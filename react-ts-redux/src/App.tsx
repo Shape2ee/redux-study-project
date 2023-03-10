@@ -1,11 +1,12 @@
 import React from 'react'
+import { RouterProvider, createBrowserRouter} from 'react-router-dom'
+import { Routes } from './routes'
+const Router = createBrowserRouter(Routes)
 
 const App: React.FC = () => {
 
   return (
-    <div className="App">
-      
-    </div>
+    <RouterProvider router={Router} />
   )
 }
 
