@@ -1,4 +1,4 @@
-import { dispatchAdd, dispatchDelete } from '../store'
+import { dispatchAdd, dispatchDelete } from '@/store'
 
 export interface ToDoItem {
   text: string,

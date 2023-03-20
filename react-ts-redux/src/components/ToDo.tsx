@@ -1,6 +1,6 @@
-import React from 'react';
-import { ToDoItem } from '../types';
-import { dispatchDelete } from '../store';
+import React, { memo } from 'react';
+import { ToDoItem } from '@/types';
+import { dispatchDelete } from '@/store';
 import { useDispatch } from 'react-redux';
 
 interface Props {
@@ -20,6 +20,6 @@ interface Props {
       <button onClick={handleClickDelete}>Del</button>
     </li>
   );
-};
+}
 
 export default ToDo

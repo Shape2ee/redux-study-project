@@ -1,22 +1,23 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { dispatchAdd } from '../store';
-import ToDoLIst from '../components/ToDoLIst';
+import { dispatchAdd } from '@/store';
+import ToDoLIst from '@components/ToDoLIst';
+import Greeting from './Greeting'
 
-const Home: React.FC = () => {  
+const Home = () => {  
   // useDispatch 는 리덕스 스토어의 dispatch 를 함수에서 사용 할 수 있게 해주는 Hook 입니다.
   const dispatch = useDispatch();
   const [text, setText] = useState<string>('')
 
-  const handleChangeInput = (e: any): void => {
+  const handleChangeInput = useCallback((e: any): void => {
     setText(e.target.value)
-  }
+  }, [])
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     dispatch(dispatchAdd(text))
     setText('')
-  }
+  }, [text])
 
   return (
     <>
